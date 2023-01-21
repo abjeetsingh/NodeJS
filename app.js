@@ -13,8 +13,14 @@ path - Constructing path to file systems as mac , lenux and windows use differne
 
 const http = require('http');
 function rqListner(req,res) {
-  console.log(req);
-  process.exit();
+  console.log(req.url,req.method, req.headers);
+  // process.exit(); // we generally do not close the server since, if we do so then the server will not be accessible to the user and we want the server to always listen to the requests
+  res.setHeader('Content-Type','text/html');
+  res.write('<html>');
+  res.write('<head><title>MY NODE</title></head>');
+  res.write('<body><h1>This is my JS Node Html</h1></body>');
+  res.write('</html>');
+  res.end();
 }
 const server = http.createServer(rqListner);
 server.listen(3000);
