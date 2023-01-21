@@ -9,3 +9,12 @@ path - Constructing path to file systems as mac , lenux and windows use differne
 
 
 */ 
+
+
+const http = require('http');
+function rqListner(req,res) {
+  console.log(req);
+  process.exit();
+}
+const server = http.createServer(rqListner);
+server.listen(3000);
