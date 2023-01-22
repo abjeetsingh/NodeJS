@@ -33,17 +33,18 @@ function rqListner(req,res) {
       console.log(chunk);
       body.push(chunk);
     });
-    req.on('end',()=>{
+    return req.on('end',()=>{
       const parsed = Buffer.concat(body).toString();
       const message = parsed.split('=')[1];
       console.log(message);
-      fs.writeFileSync('message.txt',message);
+      fs.writeFile('message.txt',message,(err)=>{
+        res.statusCode = 302;
+        res.setHeader('Location','/');
+        return res.end();
+      });
     })
     // fs.write('dummy')
     // res.writeHead(302,{})
-    res.statusCode = 302;
-    res.setHeader('Location','/');
-    return res.end();
   }
   res.setHeader('Content-Type','text/html');
   res.write('<html>');
